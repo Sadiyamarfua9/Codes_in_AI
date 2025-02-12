@@ -1,0 +1,36 @@
+import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn import tree
+iris=load_iris()
+print(iris.feature_names)
+
+irisdata=iris.data
+colnam=iris.feature_names
+df=pd.DataFrame(data=irisdata,columns=colnam)
+df.to_csv('iris.csv',index=False)
+print(iris.target_names)
+
+removed=[0,50,100]
+new_target=np.delete(iris.target,removed)
+new_data=np.delete(irisdata,removed,axis=0)
+
+dff=pd.read_csv('iris.csv')
+X=dff
+Y=iris.target
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.4,random_state=42)
+
+clf=tree.DecisionTreeClassifier(criterion="entropy")
+clf=clf.fit(X_train,Y_train)
+prediction=clf.predict(X_test)
+from sklearn.metrics import accuracy_score
+#print("Original labels",X_test)
+#print("Labels predicted",prediction)
+print("Train data accuracy:",accuracy_score(y_true=Y_train,y_pred=clf.predict(X_train)))
+print("Test data accuracy:",accuracy_score(y_true=Y_test,y_pred=prediction))
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(12,8))
+tree.plot_tree(clf,fontsize=11)
+plt.show()
