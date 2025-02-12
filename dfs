@@ -1,0 +1,21 @@
+#Define the graph as an adjacency list
+graph={
+    '5':['3','7'],
+    '3':['2','4'],
+    '7':['8'],
+    '2':[],
+    '4':['8'],
+    '8':[]
+}
+#Initialize a set to keep track of visited nodes
+visited=set()
+#Define the dfs function
+def dfs(visited,graph,node):
+  if node not in visited: # Check if the current node has not been visited
+    print(node)           # Print the current node
+    visited.add(node)     # Add the current node to the set of visited nodes
+    for neighbour in graph[node]: # Explore the neighbours of the current node
+      dfs(visited,graph,neighbour) # Recursively call the dfs function on unvisited neighbour
+#Driver code
+print("Following is the Depth-First Search")
+dfs(visited,graph,'5') # Call the dfs function with the starting node
