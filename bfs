@@ -1,0 +1,24 @@
+# Define the graph as an adjacency list
+graph={
+    '5':['3','7'],
+    '3':['2','4'],
+    '7':['8'],
+    '2':[],
+    '4':['8'],
+    '8':[]
+}
+visited=[]
+queue=[]
+def bfs(visited,graph,node):
+  visited.append(node) # Add the starting node to the 'visited' list
+  queue.append(node)   # Add the starting node to the 'queue'
+  while queue:         # Start a loop to visit each node
+    m=queue.pop(0)     # Dequeue the first node from 'queue'
+    print(m,end=" ")   # Print the dequeued node
+    for neighbour in graph[m]:  # Explore neighbours of the dequeued node
+      if neighbour not in visited:
+        visited.append(neighbour)  # Mark the neighbour as visited
+        queue.append(neighbour)    # Add the neighbour to the 'queue'
+# Driver code
+print("Following is the Breadth-First Search")
+bfs(visited,graph,'5')  # call the bfs function with the starting node
